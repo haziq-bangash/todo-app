@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import styled from 'styled-components'
 
 const Avatar = ( url, user ) => {
+    // console.log(url)
   return (
     <Wrapper className='d-flex justify-content-center align-content-center'>
         {

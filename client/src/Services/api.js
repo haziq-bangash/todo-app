@@ -1,10 +1,11 @@
 import axios from "axios";
 
+const API_BASE_URL = 'http://localhost:8080/api';
 // api request to register a new user
 export const registerUser = async (userData) => {
   try {
     const { data } = await axios.post(
-      `${process.env.API_BASE_URL}/users/register`,
+      `${API_BASE_URL}/users/register`,
       userData
     );
     return data;
@@ -16,7 +17,7 @@ export const registerUser = async (userData) => {
 // api request to login a user
 export const loginUser = async (userData) => {
   try {
-    const { data } = await axios.post(`${process.env.API_BASE_URL}/users/login`, userData);
+    const { data } = await axios.post(`${API_BASE_URL}/users/login`, userData);
     // setAuthToken(data.token); // Set the authentication token in the default headers
     return data;
     // console.log(data)
@@ -31,7 +32,7 @@ export const logoutUser = () => {};
 // api request to get all todos of a user
 export const getTodos = async (token, userId) => {
   try {
-    const { data } = await axios.get(`${process.env.API_BASE_URL}/todos`, {
+    const { data } = await axios.get(`${API_BASE_URL}/todos`, {
       headers: {
         "x-access-token": token,
       },
@@ -49,7 +50,7 @@ export const getTodos = async (token, userId) => {
 // api request to create a new todo
 export const createTodo = async (todo, token, userId) => {
   try {
-    const { data } = await axios.post(`${process.env.API_BASE_URL}/todos`, todo, {
+    const { data } = await axios.post(`${API_BASE_URL}/todos`, todo, {
       headers: {
         "x-access-token": token,
       },
@@ -72,7 +73,7 @@ export const updateTodo = async (todo, token) => {
   }
   try {
     const { data } = await axios.put(
-      `${process.env.API_BASE_URL}/todos/${todo._id}`,
+      `${API_BASE_URL}/todos/${todo._id}`,
       todo,
       {
         headers: {
@@ -89,7 +90,7 @@ export const updateTodo = async (todo, token) => {
 // api request to delete a todo by id
 export const deleteTodo = async (id, token) => {
   try {
-    const { data } = await axios.delete(`${process.env.API_BASE_URL}/todos/${id}`, {
+    const { data } = await axios.delete(`${API_BASE_URL}/todos/${id}`, {
       headers: {
         "x-access-token": token,
       },
@@ -104,7 +105,7 @@ export const deleteTodo = async (id, token) => {
 export const deleteAllTodos = async (token, userId) => {
   try {
     const { data } = await axios.delete(
-      `${process.env.API_BASE_URL}/todos/delete/all`,
+      `${API_BASE_URL}/todos/delete/all`,
       {
         headers: {
           "x-access-token": token,

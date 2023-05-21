@@ -84,5 +84,5 @@ MongoDB Atlas account (for database)
 </ol>
 
 ## Deployment
-Client: Deploy the client app to Vercel or your preferred hosting service.
-Server: Deploy the server app to Heroku or your preferred hosting service.
+<strong>Client:</strong> Deploy the client app to Vercel or your preferred hosting service. </br>
+<strong>Server:</strong> Deploy the server app to Heroku or your preferred hosting service. </br>

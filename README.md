@@ -4,7 +4,7 @@ The app allows users to create, manage, and organize their todo tasks.
 
 ## Link
 
-[Click here to view the deployed app](https://todo-app-client-khaki.vercel.app/)
+[Click here to view the deployed app](https://todo-app-client-khaki.vercel.app/){:target="_blank"}
 
 ## Tech Stack
 M - MongoDB </br>

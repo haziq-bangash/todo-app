@@ -82,6 +82,7 @@ const Login = () => {
           <button type="submit" className="btn btn-primary">
             Sign in
           </button>
+          <p className="text-sm mt-2 mb-0" >Dont have an account? <strong className="text-decoration-underline" onClick={() => navigate('/register')} >create an account</strong></p>
         </form>
       </GlassMorphism>
     </Wrapper>

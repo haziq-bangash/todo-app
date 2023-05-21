@@ -11,7 +11,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [firstname, setFirstname] = useState("")
   const [lastname, setLastname] = useState("")
-  const [picture, setPicture] = useState("")
+  const [pictureUrl, setPictureUrl] = useState("")
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
@@ -27,7 +27,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await registerUser({ first_name:firstname, last_name:lastname, email, password, picture });
+      const response = await registerUser({ first_name:firstname, last_name:lastname, email, password, pictureUrl });
       console.log("Register response:", response);
       // Set the user in the redux store
       dispatch(setUser(response.email));
@@ -50,8 +50,8 @@ const Register = () => {
         <p className="text-sm fw-bolder">Get things done.</p>
         <form className="py-3" onSubmit={handleSubmit}>
           {
-            picture && (
-              <Avatar url={picture} />
+            pictureUrl && (
+              <Avatar url={pictureUrl} />
             )
           }
           <div className="row mb-3" >
@@ -59,7 +59,7 @@ const Register = () => {
               <label htmlFor="inputPictureUrl" className="form-label">
                 Picture Url
               </label>
-              <input type="text" className="form-control" value={picture} onChange={(e) => setPicture(e.target.value)} id="inputPictureUrl" />
+              <input type="text" className="form-control" value={pictureUrl} onChange={(e) => setPictureUrl(e.target.value)} id="inputPictureUrl" />
             </div>
           </div>
           <div className="row mb-3">
@@ -113,6 +113,7 @@ const Register = () => {
           <button type="submit" className="btn btn-primary">
             Sign Up
           </button>
+          <p className="text-sm mt-2 mb-0" >Already have an account? <strong className="text-decoration-underline" onClick={() => navigate('/login')} >sign in</strong></p>
         </form>
       </GlassMorphism>
     </Wrapper>

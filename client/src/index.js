@@ -6,6 +6,7 @@ import store from './Store/store';
 import App from './App';
 
 ReactDOM.render(
+  // setting global states for the app using react-redux and redux-toolkit
   <Provider store={store}>
     <App />
   </Provider>,

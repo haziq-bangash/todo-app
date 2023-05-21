@@ -1,11 +1,12 @@
 // userSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
+// we have four states that will be used all over the website
 const initialState = {
-  user: null,
-  userId: null,
-  token: null,
-  picture: null,
+  user: null, // store user email
+  userId: null, // store user's unique id that is in the database
+  token: null, // jwt token
+  picture: null, // user's profile picture
 };
 
 const userSlice = createSlice({
@@ -24,6 +25,7 @@ const userSlice = createSlice({
     setUserId: (state, action) => {
       state.userId = action.payload;
     },
+    // clear all states when user logs out
     clearUser: (state) => {
       state.user = null;
       state.token = null;

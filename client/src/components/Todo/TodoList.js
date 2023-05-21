@@ -13,19 +13,21 @@ import {
 } from "../../Services/api";
 
 const TodoList = () => {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState([]); // State to hold the list of todo items
   const [showForm, setShowForm] = useState(false); // Add state variable for form visibility
-  const [showDeleteAll, setShowDeleteAll] = useState(false);
-  const token = useSelector((state) => state.user.token);
-  const userId = useSelector((state) => state.user.userId);
+  const [showDeleteAll, setShowDeleteAll] = useState(false); // toggle delete all button
+  const token = useSelector((state) => state.user.token); // get user token from redux store
+  const userId = useSelector((state) => state.user.userId); // get user id from redux store
 
   useEffect(() => {
+    // Call the getItems function from the API module to get the list of items from the database against user
     getItems().then((data) => {
       setItems(data);
       // console.log("data:" ,data)
     });
-  }, [userId]);
+  }, [userId]); // Call it only when userId changes
 
+  // Function to get the list of items from the database
   const getItems = async () => {
     return await getTodos(token, userId);
   };
@@ -56,7 +58,7 @@ const TodoList = () => {
     // Delete the item from the list
     const todo = items[index];
     deleteTodo(todo._id, token);
-    setItems((prevItems) => prevItems.filter((_, i) => i !== index));
+    setItems((prevItems) => prevItems.filter((_, i) => i !== index)); // Filter out the item being deleted
   };
 
   // Function to handle delete all
@@ -65,7 +67,7 @@ const TodoList = () => {
     const response = await deleteAllTodos(token, userId);
     if (response.status === 200) {
       console.log("Items deleted successfully");
-      setItems([]);
+      setItems([]); // Set the items array to empty
     } else {
       console.log("Error deleting items");
       var error = document.getElementById("error-msg");
@@ -73,13 +75,15 @@ const TodoList = () => {
     }
   };
 
+  // handle edit button click
   const handleSaveChanges = async (index, editedMessage) => {
     // Save the edited message
     const todo = items[index];
-    todo.task = editedMessage;
-    var response = await updateTodo(todo, token);
+    todo.task = editedMessage; // Update the task property
+    var response = await updateTodo(todo, token); // Call the updateTodo function from the API module to update the todo item
     if (response.task === todo.task) {
       console.log("Item updated successfully");
+      // Update the items state array
       setItems((prevItems) => {
         const updatedItems = [...prevItems];
         updatedItems[index].task = editedMessage;
@@ -93,6 +97,7 @@ const TodoList = () => {
     // console.log(items);
   };
 
+  // handle checkbox change
   const handleCheckboxChange = async (index, checked) => {
     // Save the edited message
     const todo = items[index];
@@ -116,6 +121,7 @@ const TodoList = () => {
     // console.log(items);
   };
 
+  // Function to toggle the form visibility
   const toggleForm = () => {
     setShowForm(!showForm); // Toggle form visibility
   };
@@ -174,6 +180,7 @@ const TodoList = () => {
             id="error-msg"
             className="text-sm text-warning"
           ></ErrorMessage>
+          {/* sending addItem function as callback */}
           {showForm && <TodoForm getItem={addItem} />}{" "}
           {/* Show TodoForm when showForm is true */}
         </GlassMorphism>
@@ -183,7 +190,7 @@ const TodoList = () => {
               key={index}
               message={item}
               index={index}
-              deleteItem={() => deleteItem(index)}
+              deleteItem={() => deleteItem(index)} // Pass the deleteItem function as prop
               onSaveChanges={handleSaveChanges} // Pass the handleSaveChanges function as prop
               onCheckboxChange={handleCheckboxChange} // Pass the handleCheckboxChange function as prop
             />

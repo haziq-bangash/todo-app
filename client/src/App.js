@@ -10,6 +10,7 @@ import "./Styles/global.css";
 function App() {
   return (
     <div className="App text-light">
+      {/* setting app routes using react router dom */}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Dashboard />} />

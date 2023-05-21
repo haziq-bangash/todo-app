@@ -3,17 +3,18 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, setUserId, setToken, setPicture } from "../Store/userSlice";
-import { loginUser } from "../Services/api";
+import { loginUser } from "../Services/api"; // import the loginUser function from the API module
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
-  const token = useSelector((state) => state.user.token);
+  const [email, setEmail] = useState(""); // State to hold the email address
+  const [password, setPassword] = useState(""); // State to hold the password
+  const navigate = useNavigate(); // Navigate hook to redirect the user
+  const dispatch = useDispatch(); // Dispatch hook to dispatch actions
+  const user = useSelector((state) => state.user.user); // get user email from redux store to check if user already loggoed in or not
+  const token = useSelector((state) => state.user.token); // get user token from redux store to check if user already loggoed in or not
 
     useEffect(() => {
+    // If there is user data in the redux store, redirect to the dashboard
     if (user && token) {
       navigate("/");
     }
@@ -22,14 +23,14 @@ const Login = () => {
     // console.log(user)
     // console.log(token)
 
+  // Function to handle login
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent the default form submit action
 
     try {
       // Call the loginUser function from the API module to send the login request
       const response = await loginUser({ email, password });
-      // Redirect the user to the dashboard or another page
-      console.log("Login response:", response);
+      // console.log("Login response:", response);
       // Set the user in the redux store
       dispatch(setUser(response.email));
       // Set the token in the redux store

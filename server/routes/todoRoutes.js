@@ -1,7 +1,7 @@
 const express = require('express');
-const router = express.Router();
-const todoController = require('../controllers/todoController');
-const auth = require("../middleware/auth");
+const router = express.Router(); // create router
+const todoController = require('../controllers/todoController'); // import todo controller
+const auth = require("../middleware/auth"); // auth middleware
 
 router.get('/', auth, todoController.getAllTodos);
 router.post('/', auth, todoController.createTodo);

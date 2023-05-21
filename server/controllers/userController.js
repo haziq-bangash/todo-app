@@ -1,13 +1,13 @@
-const User = require("../models/User");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+const User = require("../models/User"); // Import User Model Schema
+const bcrypt = require("bcryptjs"); // Import Bcrypt Package
+const jwt = require("jsonwebtoken"); // Import Jsonwebtoken Package
+require("dotenv").config(); // Import dotenv Package
 
 // Register User
 exports.register = async (req, res) => {
   try {
     // Get user input
-    const { first_name, last_name, email, password, picture } = req.body;
+    const { first_name, last_name, email, password, picture } = req.body; // Destructure req.body
 
     // Validate user input
     if (!(email && password && first_name && last_name)) {
@@ -16,14 +16,14 @@ exports.register = async (req, res) => {
 
     // check if user already exists
     // Validate if user exists in our database
-    const oldUser = await User.findOne({ email });
+    const oldUser = await User.findOne({ email }); // Find user with requested email
 
     if (oldUser) {
       return res.status(409).send("User Already Exist. Please Login");
     }
 
     // Encrypt user password
-    const encryptedPassword = await bcrypt.hash(password, 10);
+    const encryptedPassword = await bcrypt.hash(password, 10); // Encrypt password with bcryptjs
 
     // Create user in our database
     const user = await User.create({

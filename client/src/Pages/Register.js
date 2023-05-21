@@ -7,28 +7,31 @@ import { setUser, setUserId, setToken, setPicture } from "../Store/userSlice";
 import { registerUser } from "../Services/api";
 
 const Register = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [firstname, setFirstname] = useState("")
-  const [lastname, setLastname] = useState("")
-  const [pictureUrl, setPictureUrl] = useState("")
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
-  const token = useSelector((state) => state.user.token);
+  const [email, setEmail] = useState(""); // State to hold the email address
+  const [password, setPassword] = useState(""); // State to hold the password
+  const [firstname, setFirstname] = useState("") // State to hold the firstname
+  const [lastname, setLastname] = useState("") // State to hold the lastname
+  const [pictureUrl, setPictureUrl] = useState("") // State to hold the pictureUrl
+  const navigate = useNavigate(); // Navigate hook to redirect the user
+  const dispatch = useDispatch(); // Dispatch hook to dispatch actions
+  const user = useSelector((state) => state.user.user); // get user email from redux store to check if user already loggoed in or not
+  const token = useSelector((state) => state.user.token); // get user token from redux store to check if user already loggoed in or not
 
   useEffect(() => {
+    // If there is user data in the redux store, redirect to the dashboard
     if (user && token) {
       navigate("/");
     }
   }, [user, token]);
 
+  // handle submit function
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Prevent the default form submit action
 
     try {
+      // Call the registerUser function from the API module to send the register request
       const response = await registerUser({ first_name:firstname, last_name:lastname, email, password, pictureUrl });
-      console.log("Register response:", response);
+      // console.log("Register response:", response);
       // Set the user in the redux store
       dispatch(setUser(response.email));
       // Set the token in the redux store
@@ -49,6 +52,7 @@ const Register = () => {
         <h1 className="display-6">Create an account.</h1>
         <p className="text-sm fw-bolder">Get things done.</p>
         <form className="py-3" onSubmit={handleSubmit}>
+          {/* if user put picture url then dynamically show avatar component */}
           {
             pictureUrl && (
               <Avatar url={pictureUrl} />

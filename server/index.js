@@ -1,18 +1,19 @@
 const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const todoRoutes = require('./routes/todoRoutes');
-const userRoutes = require('./routes/userRoutes');
+const cors = require('cors'); // import cors for cross-origin resource sharing
+const bodyParser = require('body-parser'); // import body-parser for parsing request bodies
+const mongoose = require('mongoose'); // import mongoose for interacting with MongoDB
+const todoRoutes = require('./routes/todoRoutes'); // import todo routes
+const userRoutes = require('./routes/userRoutes'); // import user routes
 
-const app = express();
-const port = 8080;
+const app = express(); // create express app
+const port = 8080; // port to listen on
 
-app.use(cors());
-app.use(express.json());
-app.use(bodyParser.json());
+app.use(cors()); // use cors
+app.use(express.json()); // use express.json to parse json bodies
+app.use(bodyParser.json()); // use body-parser to parse json bodies
 
 
+// Connect to MongoDB
 mongoose.connect('mongodb://127.0.0.1:27017/todoapp', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -27,6 +28,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/todoapp', {
 app.use('/api/todos', todoRoutes);
 app.use('/api/users', userRoutes);
 
+// Start server
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);
 });

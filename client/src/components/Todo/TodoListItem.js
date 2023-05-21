@@ -3,46 +3,53 @@ import styled from "styled-components";
 import { RxDragHandleDots2 } from "react-icons/rx";
 
 const TodoListItem = ({
-  message,
-  index,
-  deleteItem,
-  onSaveChanges,
-  onCheckboxChange,
+  message, // The todo item object
+  index, // The index of the todo item in the items array
+  deleteItem, // The deleteItem function from the parent component
+  onSaveChanges, // The handleSaveChanges function from the parent component
+  onCheckboxChange, // The handleCheckboxChange function from the parent component
 }) => {
-  const [editMode, setEditMode] = useState(false);
-  const [editedMessage, setEditedMessage] = useState(message);
-  const [showOptionsMenu, setShowOptionsMenu] = useState(false);
+  const [editMode, setEditMode] = useState(false); // State to hold the edit mode
+  const [editedMessage, setEditedMessage] = useState(message); // State to hold the edited message
+  const [showOptionsMenu, setShowOptionsMenu] = useState(false); // State to hold the options menu visibility
 
-  const inputRef = useRef(null);
+  const inputRef = useRef(null); // Create a reference to the input element
 
   useEffect(() => {
+    // If the edit mode is true, focus the input element
     if (editMode) {
       inputRef.current.focus();
     }
   }, [editMode]);
 
+  // Function to toggle the edit mode
   const toggleEditMode = () => {
     setEditMode(!editMode);
   };
 
+  // Function to handle input change
   const handleInputChange = (event) => {
     setEditedMessage(event.target.value);
   };
 
+  // Function to handle checkbox change
   const handleCheckboxInputChange = (event) => {
     onCheckboxChange(index, event.target.checked);
   };
 
+  // Function to handle save changes
   const handleSaveChanges = () => {
     onSaveChanges(index, editedMessage);
     toggleEditMode();
   };
 
+  // Function to toggle the options menu
   const toggleOptionsMenu = () => {
     setShowOptionsMenu(!showOptionsMenu);
   };
 
-  const handleKeyDown = (event) => {
+  // Function to handle key escape to return to view mode
+  const handleKeyEscape = (event) => {
     if (event.key === "Escape") {
       setEditedMessage(message);
       toggleEditMode();
@@ -51,12 +58,13 @@ const TodoListItem = ({
 
   return (
     <div className="d-flex mx-2 border-bottom p-3 justify-content-between align-items-center">
+      {/* if user wants to edit task then show edit task form */}
       {editMode ? (
         <input
           type="text"
           value={editedMessage.task}
           onChange={handleInputChange}
-          onKeyDown={handleKeyDown}
+          onKeyDown={handleKeyEscape}
           ref={inputRef}
         />
       ) : (

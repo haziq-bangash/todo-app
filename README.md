@@ -3,10 +3,10 @@ This is a Todo List application built with a MERN stack (MongoDB, Express.js, Re
 The app allows users to create, manage, and organize their todo tasks.
 
 ## Tech Stack
-M - MongoDB
-E - Express
-R - React js
-N - Node js
+M - MongoDB </br>
+E - Express </br>
+R - React js </br>
+N - Node js </br>
 
 ## Features
 <ul>

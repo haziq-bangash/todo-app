@@ -81,6 +81,7 @@ MongoDB Atlas account (for database)
   npm run dev
 ```
 </li>
+</ol>
 
 ## Deployment
 Client: Deploy the client app to Vercel or your preferred hosting service.

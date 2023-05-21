@@ -1,8 +1,14 @@
 const mongoose = require('mongoose');
+const User = require('./User');
 
 const todoSchema = new mongoose.Schema({
   task: {
     type: String,
+    required: true,
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
     required: true,
   },
   completed: {

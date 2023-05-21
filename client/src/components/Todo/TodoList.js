@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import TodoListItem from "./TodoListItem";
 import TodoForm from "./TodoForm";
 import styled from "styled-components";
@@ -15,15 +16,18 @@ const TodoList = () => {
   const [items, setItems] = useState([]);
   const [showForm, setShowForm] = useState(false); // Add state variable for form visibility
   const [showDeleteAll, setShowDeleteAll] = useState(false);
+  const token = useSelector((state) => state.user.token);
+  const userId = useSelector((state) => state.user.userId);
 
   useEffect(() => {
     getItems().then((data) => {
       setItems(data);
+      // console.log("data:" ,data)
     });
-  }, []);
+  }, [userId]);
 
   const getItems = async () => {
-    return await getTodos();
+    return await getTodos(token, userId);
   };
 
   const addItem = async (item) => {
@@ -35,7 +39,7 @@ const TodoList = () => {
       completed_time: null,
     };
     try {
-      const response = await createTodo(todo);
+      const response = await createTodo(todo, token, userId);
       if (response.task === item.task) {
         const newItem = item; // Newly inserted todo item
         setItems((prevItems) => [...prevItems, newItem]);
@@ -51,14 +55,14 @@ const TodoList = () => {
   const deleteItem = (index) => {
     // Delete the item from the list
     const todo = items[index];
-    deleteTodo(todo._id);
+    deleteTodo(todo._id, token);
     setItems((prevItems) => prevItems.filter((_, i) => i !== index));
   };
 
   // Function to handle delete all
   const handleDeleteAll = async () => {
     // Delete all items in the list
-    const response = await deleteAllTodos();
+    const response = await deleteAllTodos(token, userId);
     if (response.status === 200) {
       console.log("Items deleted successfully");
       setItems([]);
@@ -73,7 +77,7 @@ const TodoList = () => {
     // Save the edited message
     const todo = items[index];
     todo.task = editedMessage;
-    var response = await updateTodo(todo);
+    var response = await updateTodo(todo, token);
     if (response.task === todo.task) {
       console.log("Item updated successfully");
       setItems((prevItems) => {
@@ -95,7 +99,7 @@ const TodoList = () => {
     todo.completed = checked;
 
     // console.log(todo);
-    var response = await updateTodo(todo);
+    var response = await updateTodo(todo, token);
     // console.log(response)
     if (response.task === todo.task) {
       console.log("Item updated successfully");

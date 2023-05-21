@@ -70,7 +70,9 @@ const TodoListItem = ({
               id={`checkbox-${index}`}
             />
           </div>
-          <div>{message.task}</div>
+          <div>
+            {message.task}
+          </div>
         </div>
       )}
 

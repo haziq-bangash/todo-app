@@ -3,6 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const todoRoutes = require('./routes/todoRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 const port = 8080;
@@ -24,6 +25,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/todoapp', {
   });
 
 app.use('/api/todos', todoRoutes);
+app.use('/api/users', userRoutes);
 
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);

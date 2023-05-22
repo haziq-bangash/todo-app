@@ -31,12 +31,6 @@ mongoose.connect(`${process.env.MONGO_DB_URL}`, {
 app.use('/api/todos', todoRoutes);
 app.use('/api/users', userRoutes);
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).json({ error: 'Internal Server Error' });
-});
-
 // Start server
 app.listen(port, () => {
   console.log(`Server listening at http://localhost:${port}`);

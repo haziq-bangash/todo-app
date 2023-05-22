@@ -25,7 +25,7 @@ N - Node js </br>
 </ul>
 
 ## Prerequisites
-Node.js (version 10 or above)
+Node.js &
 MongoDB Atlas account (for database)
 
 ## Installation and Setup

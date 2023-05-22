@@ -25,7 +25,7 @@ const TodoList = () => {
       setItems(data);
       // console.log("data:" ,data)
     });
-  }, [userId]); // Call it only when userId changes
+  }, [userId, token]); // Call it only when userId changes
 
   // Function to get the list of items from the database
   const getItems = async () => {

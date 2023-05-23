@@ -20,7 +20,6 @@ This is the client-side code for the Todo App. It is a React application that al
     <li>React Icons</li>
     <li>Styled Components</li>
     <li>ESLint</li>
-    <li>Prettier</li>
 </ol>
 
 ## Folder Structure

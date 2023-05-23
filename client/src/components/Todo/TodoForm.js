@@ -19,6 +19,13 @@ const TodoForm = ({ getItem }) => {
     }
   };
 
+  function onKeyEnter(e){
+    if(e.keyCode === 13){
+      console.log("enter key pressed")
+      handleSubmit(e);
+    }
+  }
+
   return (
     <form className="mb-3 px-3 text-start d-flex justify-content-between align-items-center" onSubmit={handleSubmit}>
       <input
@@ -28,6 +35,7 @@ const TodoForm = ({ getItem }) => {
         id="item"
         placeholder="Be Amazing!"
         ref={itemRef} // Bind the input element to the reference
+        onKeyDown={onKeyEnter}
       />
       <button type="submit" className="btn btn-sm btn-primary my-2">Add</button>
     </form>

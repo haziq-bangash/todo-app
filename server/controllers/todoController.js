@@ -37,7 +37,7 @@ exports.updateTodo = async (req, res) => {
   try {
     const { id } = req.params; // Get id from params
     const { task, completed, completed_time } = req.body; // Get task, completed, completed_time from body
-    // console.log(req.body)
+    // console.log(id)
     const todo = await Todo.findByIdAndUpdate(
       id, // Find todo by id
       { task, completed, completed_time }, // Update task, completed, completed_time

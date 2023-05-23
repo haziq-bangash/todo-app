@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API_BASE_URL = 'https://todo-app-server-eosin.vercel.app/api';
+// const API_BASE_URL = 'https://todo-app-server-eosin.vercel.app/api';
+const API_BASE_URL = "http://localhost:8080/api";
 // api request to register a new user
 export const registerUser = async (userData) => {
   try {
@@ -71,6 +72,7 @@ export const updateTodo = async (todo, token) => {
   } else {
     todo.completed_time = null;
   }
+  // console.log(todo._id)
   try {
     const { data } = await axios.put(
       `${API_BASE_URL}/todos/${todo._id}`,
